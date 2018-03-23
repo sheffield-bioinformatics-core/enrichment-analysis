@@ -129,6 +129,8 @@ Just changing the size of the universe alone can have a massive effect on the p-
 
 ## Worked Example: Drosophila genes regulated by pasilla
 
+We will use a 
+
 ## Preamble
 
 > In the study of Brooks et al. 2011, the Pasilla (PS) gene, Drosophila homologue of the Human splicing regulators Nova-1 and Nova-2 Proteins, was depleted in Drosophila melanogaster by RNAi. The authors wanted to identify exons that are regulated by Pasilla gene using RNA sequencing data.
@@ -196,14 +198,28 @@ with ‘NAs’ for those that were not tested.
 
 ## Theory Part II: Threshold-free
 
-For these tests, we don't have to specify a statistical threshold and use the test statistics from *all* genes as the input to the test. The popular *Gene Set Enrichment Analysis (GSEA)* uses this approach. These tests can be used to detect differential expression for a group of genes, even when the effects are too small or there is too little data to detect the genes individually.
+For these tests, we don't have to specify a statistical threshold and use the test statistics (log fold-change) from *all* genes as the input to the test. The popular *Gene Set Enrichment Analysis (GSEA)* uses this approach. These tests can be used to detect differential expression for a group of genes, even when the effects are too small or there is too little data to detect the genes individually.
 
 ![gsea](images/GSEA.png)
 
 *Subramanian et al, PNAS 2005*
 
-The Broad institute provides [a version of GSEA](http://software.broadinstitute.org/gsea/index.jsp) that can be run via a java application. However, it requires you to convert your data into a particular format. A more convenient option is [***GeneTrail***](http://genetrail.bioinf.uni-sb.de/enrichment_analysis.php?js=1&cc=1) which has the option to do a GSEA-style analysis.
+The Broad institute provides [a version of GSEA](http://software.broadinstitute.org/gsea/index.jsp) that can be run via a java application. Another option is [***GeneTrail***](http://genetrail.bioinf.uni-sb.de/enrichment_analysis.php?js=1&cc=1) which has the option to do a GSEA-style analysis.
 
+## Preparing data for GeneTrail
 
+1. **Text Maniupulation -> Filter** with condition `c3 != 'NA'`
+   + select `DESeq2 result file...` as input
+2. **Text Manipulation -> Cut** 
+   + selecting columns `c1 c3` as the columns to cut
+3. Download the filtered, cut, table as a file (e.g. `gsea-input.txt`)
 
+## Running GeneTrail
+
+Go to the [GeneTrail website](https://genetrail2.bioinf.uni-sb.de/)
+
+1. Under Transcriptome, select **Start Analysis**
+2. Under **Upload Data** select the data source to be *a text file* and browse to where you downloaded the file `gsea-input.txt`
+3. Keep the default categories and **Start Analysis**
+4. Explore the results to see what pathways are reported
 
