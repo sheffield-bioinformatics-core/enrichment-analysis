@@ -7,6 +7,12 @@ output:
     toc: yes
     toc_float: yes
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
 ```{r echo=FALSE,message=FALSE}
 library(limma)
 ```
@@ -129,7 +135,7 @@ Just changing the size of the universe alone can have a massive effect on the p-
 
 ## Worked Example: Drosophila genes regulated by pasilla
 
-We will use a 
+In order to get a larger set of differentially-expressed genes across the whole genome, we will use a different dataset where gene counts have already been computed 
 
 ## Preamble
 
@@ -156,7 +162,9 @@ To save time and memory, pre-counted files are available online ([https://zenodo
 - Filter the results using the condition `c7 < 0.05 and (c3 > 1.0 or c3 < -1.0)`
 
 (Optional) Sort by a column:
+
 We can sort the table by values in a particular column (eg. log fold change)
+
 1. Filter and Sort -> Sort
 2. Select the most recent filtered table as the dataset
 3. Sort log fold change by Descending order
@@ -172,12 +180,11 @@ We will be using the online tool [GOrilla](http://cbl-gorilla.cs.technion.ac.il/
 
 
 ##Make a background list of genes:
-This is the list of all the genes you tested in your RNAseq pipeline. Recall that
-you only tested genes on a single chromosome, so there will be many genes
-with ‘NAs’ for those that were not tested.
+
+This is the list of all the genes you tested in your RNAseq pipeline. 
 
 1. Filter and Sort -> Filter
-2. Select the DESeq2 results from the previous step
+2. Select the DESeq2 results from the previous step *prior to p-value and fold-change filtering*
 3. Text Manipulation -> Cut
 4. Keep the first column
 5. Download and save the resulting file of gene names as
@@ -189,7 +196,7 @@ with ‘NAs’ for those that were not tested.
 
 ![](images/gorilla-example.png)
 
-3. Choose Organism: `Saccharomyces cerevisiae`
+3. Choose Organism: `Drosophila melanogaster`
 4. Choose running mode: `Two unranked lists of genes`
 5. Upload `DE_Genes.txt` as the Target set.
 6. Upload `Background.txt` as the Background set.
